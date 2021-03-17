@@ -12,39 +12,40 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-info">
-                            <h4 class="card-title">Add new category</h4>
+                            <h4 class="card-title">Edit category</h4>
                         </div>
-                       @if ($errors->any())
-                       <div class="card">
-                            <div class=" card-header card-header-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                        @endif
+                        @if ($errors->any())
+                        <div class="card">
+                             <div class="card-header card-header-danger">
+                                 <ul>
+                                     @foreach ($errors->all() as $error)
+                                         <li>{{ $error }}</li>
+                                     @endforeach
+                                 </ul>
+                             </div>
+                         </div>
+                         @endif
                         <div class="card-body">
-                            <form action="{{route('admin.categories.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('admin.categories.update', $category->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <label class="bmd-label-floating">Category name</label>
-                                            <input type="text" name="name" class="form-control" value="{{ old('name')}} " >
+                                            <label class="bmd-label-floating ">Category name </label>
+                                            <input type="text" name="name" class="form-control" value="{{ $category->name }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <label class="bmd-label-floating">Category slug</label>
-                                            <input type="text" name="slug" class="form-control" value="{{ old('slug')}} " >
+                                            <label class="bmd-label-floating ">Category slug</label>
+                                            <input type="text" name="slug" class="form-control" value="{{ $category->slug }}">
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-info pull-right">Create</button>
+                                <button type="submit" class="btn btn-info pull-right">Edit</button>
                                 <div class="clearfix"></div>
                             </form>
                         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use App\Http\Requests\CategoryValidationRequest;
 
 class CategoryController extends Controller
 {
@@ -15,10 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Categories::where('status' , '1')->orderBy('id' , 'desc')->paginate(12);
+        $categories = Categories::orderBy('id' , 'desc')->paginate(12);
 
-        return view('admin.categories.index', [
-                    'categories' => $categories ]);
+        return view('admin.categories.index', ['categories' => $categories ]);
     }
 
     public function create()
@@ -27,14 +27,14 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryValidationRequest $request)
     {
        Categories::create([
            'name' => $request->name,
-           'url'  => $request->url
+           'slug'  => $request->slug
        ]);
 
-       return  redirect('admin/categories');
+       return  redirect('admin/categories')->with('success', 'Category was created successfully');
     }
 
     public function show($id)
@@ -43,20 +43,33 @@ class CategoryController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Categories $category)
     {
-        //
+        return view('admin.categories.edit', [ 'category' => $category ]);
     }
 
 
-    public function update(Request $request, $id)
+    public function update(CategoryValidationRequest $request, Categories $category)
     {
-        //
+        $category->update([
+            'name' => $request->name,
+            'slug'  => $request->slug
+        ]);
+
+       return  redirect('admin/categories')->with('success', 'Category was updated successfully');
     }
 
 
-    public function destroy($id)
+    public function destroy(Categories $category)
     {
-        //
+        $category->delete();
+        return redirect()->back()->with('success', 'Category was deleted successfully');
+    }
+
+    public  function updatestatus(Categories $category){
+
+        $category->update([ 'status' => $category->status == 1 ? 0 : 1 ]) ;
+        return redirect()->back();
+
     }
 }
