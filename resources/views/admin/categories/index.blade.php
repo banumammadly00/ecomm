@@ -14,14 +14,9 @@
                         <div class="card-header card-header-info">
                             <h4 class="card-title ">List categories</h4>
                         </div>
-                        @if(session()->has('success'))
-                        <div class="card">
-                            <div class=" card-header card-header-success">
-                                <ul>
-                                  <li>{{ session('success') }}</li>
-                                </ul>
-                            </div>
-                            @endif
+                    //--------------Success messages------------
+                      @include('admin.messages.success')
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

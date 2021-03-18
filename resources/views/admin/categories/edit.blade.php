@@ -14,17 +14,9 @@
                         <div class="card-header card-header-info">
                             <h4 class="card-title">Edit category</h4>
                         </div>
-                        @if ($errors->any())
-                        <div class="card">
-                             <div class="card-header card-header-danger">
-                                 <ul>
-                                     @foreach ($errors->all() as $error)
-                                         <li>{{ $error }}</li>
-                                     @endforeach
-                                 </ul>
-                             </div>
-                         </div>
-                         @endif
+                        //--------------Errors------------
+                        @include('admin.messages.errors')
+
                         <div class="card-body">
                             <form action="{{route('admin.categories.update', $category->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
