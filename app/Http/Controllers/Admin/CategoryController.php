@@ -9,16 +9,12 @@ use App\Http\Requests\CategoryValidationRequest;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $categories = Categories::orderBy('id' , 'desc')->paginate(12);
+        // $categories = Categories::orderBy('id' , 'desc')->paginate(12);
 
-        return view('admin.categories.index', ['categories' => $categories ]);
+         return view('admin.categories.index');
     }
 
     public function create()
@@ -45,7 +41,7 @@ class CategoryController extends Controller
 
     public function edit(Categories $category)
     {
-        return view('admin.categories.edit', [ 'category' => $category ]);
+        return view('admin.categories.edit', ['category' => $category]);
     }
 
 
