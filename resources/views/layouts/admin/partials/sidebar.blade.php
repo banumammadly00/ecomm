@@ -9,13 +9,13 @@
         </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="nav-item active">
+            <li class="nav-item {{ url()->current() == route('admin.dashboard.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ url()->current() == route('admin.categories.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.categories.index') }}">
                     <i class="material-icons">dashboard</i>
                     <p>Categories</p>
@@ -27,8 +27,8 @@
                     <p>Products</p>
                 </a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./tables.html">
+            <li class="nav-item {{ url()->current() == route('admin.attributes.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.attributes.index') }}">
                     <i class="material-icons">content_paste</i>
                     <p>Product attributes</p>
                 </a>

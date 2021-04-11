@@ -5,14 +5,14 @@
         <div  class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{ route('admin.categories.create') }}" type="submit" class="btn btn-info pull-right">+ New category</a>
+                    <a href="{{ route('admin.attributes.create')}}" type="submit" class="btn btn-info pull-right">+ New attribute</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header card-header-info">
-                            <h4 class="card-title ">List categories</h4>
+                            <h4 class="card-title ">List attributes</h4>
                         </div>
                     //--------------Success messages------------
                       @include('admin.messages.success')
@@ -23,34 +23,36 @@
                                 <table class="table">
                                     <thead class=" text-primary">
                                     <tr>
-                                        <th> ID</th>
-                                        <th> Name </th>
-                                        <th>Slug</th>
-                                        <th>Status</th>
+                                        <th>  ID             </th>
+                                        <th>  Name           </th>
+                                        <th>  Slug           </th>
+                                        <th>  Attribute type </th>
+                                        <th>  Status         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($categories as $category)
+                                        @foreach ($attributes as $attribute)
                                             <tr>
-                                            <td> {{ $category->id }} </td>
-                                            <td> {{ $category->name }} </td>
-                                            <td> {{ $category->slug }} </td>
+                                            <td> {{ $attribute->id }}             </td>
+                                            <td> {{ $attribute->name }}           </td>
+                                            <td> {{ $attribute->slug }}           </td>
+                                            <td> {{ $attribute->attribute_type }} </td>
                                             <td>
                                                <div class="form-check">
                                                     <label class="form-check-label">
-                                                        <a href="{{route('admin.categories.status', $category->id) }}">
+                                                        <a href="{{ route('admin.attribute.status' , $attribute->id) }}">
                                                           <input type="submit" name="status" style="display: none" >
-                                                          <input class="form-check-input" type="checkbox" {{$category->status==1 ? 'checked' : ''}} >
+                                                          <input class="form-check-input" type="checkbox" {{ $attribute->status==1 ? 'checked' : ''}} >
                                                           <span class="form-check-sign">   <span class="check"></span></span>
                                                         </a>
                                                     </label>
                                                 </div>
                                             </td>
                                             <td class="td-actions text-right">
-                                                <a type="button" href="{{ route('admin.categories.edit' , $category->id) }}" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
+                                                <a type="button" href="{{route('admin.attributes.edit', $attribute->id)}}" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                            <form action="{{route('admin.categories.destroy', $category->id)}}" method="post" enctype="multipart/form-data">
+                                            <form action="{{route('admin.attributes.destroy', $attribute->id)}}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
