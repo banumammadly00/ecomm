@@ -16,6 +16,11 @@
 <script src="{{ asset('admin/js/material-dashboard.js')}}"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="{{ asset('admin/demo/demo.js')}}"></script>
+
+<script src="{{ asset('admin/js/file-upload.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+
 <script>
     $(document).ready(function() {
         $().ready(function() {
@@ -178,13 +183,13 @@
         });
     });
 </script>
-<script>
+<script???>
     $(document).ready(function() {
         // Javascript method's body can be found in assets/js/demos.js
         md.initDashboardPageCharts();
 
     });
-</script>
+</script???>
 </body>
 
 </html>

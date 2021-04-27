@@ -21,9 +21,9 @@
                     <p>Categories</p>
                 </a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./user.html">
-                    <i class="material-icons">person</i>
+            <li class="nav-item {{ url()->current() == route('admin.products.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.products.index') }}">
+                    <i class="material-icons">dashboard</i>
                     <p>Products</p>
                 </a>
             </li>

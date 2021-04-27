@@ -17,6 +17,8 @@
     <link href="{{ asset('admin/css/material-dashboard.css')}}" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('admin/demo/demo.css')}}" rel="stylesheet" />
-</head>
+
+    <link href="{{ asset('admin/css/file-upload.css')}}" rel="stylesheet" />
+ </head>
 
 <body class="dark-edition">
