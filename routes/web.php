@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,7 @@ Route::group(['prefix' => 'admin','as' => 'admin.'], function()
     Route::get('attributes/status/{attribute}', [AttributeController::class, 'updatestatus'])->name('attribute.status');
     Route::resource('attributes', AttributeController::class);
 
+    //Products
+    Route::get('products/status/{product}', [ProductsController::class, 'updatestatus'])->name('products.status');
+    Route::resource('products', ProductsController::class);
 });
