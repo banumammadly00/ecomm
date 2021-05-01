@@ -108,12 +108,12 @@ jQuery(function($) {
       }
     }
   });
-  //-------------input checkbox--------------
+
+  //______________________Input checkbox___________________________
    $("div").on("click", 'input[type="checkbox"]', function() {
     $('input[type="checkbox"]').not(this).prop("checked", false);
 
  });
-
  });
 
 //Apply the validation rules for attachments upload
@@ -183,7 +183,6 @@ function CheckFileType(fileType) {
 //To check files count according to upload conditions
 function CheckFilesCount(AttachmentArray) {
   //Since AttachmentArray.length return the next available index in the array,
-  //I have used the loop to get the real length
   var len = 0;
   for (var i = 0; i < AttachmentArray.length; i++) {
     if (AttachmentArray[i] !== undefined) {
@@ -191,19 +190,19 @@ function CheckFilesCount(AttachmentArray) {
     }
   }
 
-/*
- if(len=0 || len>0) preview.classList.remove('output-background--hidden');
-  To check the length does not exceed 10 files maximum
-  if (len > 9) {
-    return false;
-  } else {
-    return true;
-  }
-  */
+
+    //  if(len=0 || len>0) preview.classList.remove('output-background--hidden');
+    //   To check the length does not exceed 10 files maximum
+    //   if (len > 9) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+
 }
 
 //Render attachments thumbnails.
-function RenderThumbnail(e, readerEvt, image=) {
+function RenderThumbnail(e, readerEvt) {
   var li = document.createElement("li");
   ul.appendChild(li);
   li.innerHTML = [
@@ -229,7 +228,7 @@ function RenderThumbnail(e, readerEvt, image=) {
 //   div.innerHTML = [readerEvt.name].join("");
 
   document.getElementById("Filelist").insertBefore(ul, null);
-   document.getElementById('check').checked=true;
+  document.getElementById('check').checked=true;
 }
 
 
@@ -247,3 +246,48 @@ function FillAttachmentArray(e, readerEvt) {
   };
   arrCounter = arrCounter + 1;
 }
+
+
+//_____________________________For Editing Images_______________________________
+
+if(document.getElementById('existingImages').value){
+var ul=document.createElement('ul');
+ul.className = "thumb-Images";
+ul.id = "imgList";
+let images = document.getElementById('existingImages').value;
+let result =images.split(',');
+
+for(var i =0 ; i < result.length; i++){
+        var li=document.createElement('li');
+        li.innerHTML=[
+            '<div class="img-wrap" > <span class="close" id="close_image" onclick="">&times;</span>' +
+            '<div class="form-check" style="margin-top: -28px;" >' +
+            '<label class="form-check-label"> ' +
+            '<input class="form-check-input" type="checkbox" name="main_image" id="check" value="'+ result[i] + '"' + ( i==0 ? 'checked' : '"" ') + '>' +
+            '<span class="form-check-sign" style="left: 44px; top: 45px;">' +
+            '<span class="check" style="border-color: #ddd; border-radius: 15px; background: #dddddd78;"></span></span>' +
+            '</label> </div>' +
+              '<img class="thumb" src="http://127.0.0.1:8000/storage/images/'+ result[i] + '" data-id="' +i + '"' +
+              '</div>'
+          ];
+        ul.appendChild(li);
+        }
+    document.getElementById('existing-images').appendChild(ul);
+
+
+jQuery(function($) {
+    $("div").on("click", ".img-wrap #close_image ", function() {
+
+      var updated_images = [];
+      var image = $('input[name="main_image"]').each(function() {
+        updated_images.push(this.value);
+      });
+      image[0].checked == false ?  image[0].checked = true : '' ;
+
+      $('input[name=image_list]').val( updated_images.join());
+
+    });
+
+   });
+
+    }

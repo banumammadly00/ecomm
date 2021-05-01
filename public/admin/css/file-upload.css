@@ -191,3 +191,21 @@
       position: relative;
       overflow:auto;
   }
+
+  .edit-output-background {
+    background: #394d6c;
+    margin: 1.5rem 0;
+    padding-top: 1%;
+    box-shadow: 0.325rem 0.325rem 0.1825rem rgb(79, 115, 169, 35%);
+    position: relative;
+    overflow:auto;
+}
+  .edit-image {
+    padding: 23px;
+  }
+
+  .icon-image {
+    float: left;
+    margin:2px;
+    margin-right:7px;
+  }
