@@ -54,7 +54,7 @@
                                                 <a type="button" href="{{ route('admin.products.edit', $product->id) }}" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
                                                     <i class="material-icons">edit</i>
                                                 </a>
-                                            <form action="" method="post" enctype="multipart/form-data">
+                                            <form action="{{route('admin.products.destroy', $product->id)}}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">

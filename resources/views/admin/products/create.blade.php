@@ -63,7 +63,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="form-group bmd-form-group">
-                                        <label class="form-control" for="files" style="cursor: pointer;">Upload Image <i class="fa fa-image" style="float: left; margin:2px;  margin-right:7px;"></i></label>
+                                        <label class="form-control" for="files" style="cursor: pointer;">Upload Image <i class="fa fa-image icon-image"></i></label>
                                         <input type="file" name="images[]" id="files" multiple accept="image/*">
                                         <output class="output-background " id="Filelist"></output>
                                         </div>
@@ -77,5 +77,6 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('admin/js/file-upload.js')}}"></script>
     </div>
 @endsection

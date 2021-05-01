@@ -7,7 +7,7 @@
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
 <!-- Chartist JS -->
 <script src="{{ asset('admin/js/plugins/chartist.min.js')}}"></script>
 <!--  Notifications Plugin    -->
@@ -18,7 +18,8 @@
 <script src="{{ asset('admin/demo/demo.js')}}"></script>
 
 <script src="{{ asset('admin/js/file-upload.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script>

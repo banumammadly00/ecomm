@@ -18,8 +18,9 @@
                         @include('admin.messages.errors')
 
                         <div class="card-body">
-                            <form action="" method="post" enctype="multipart/form-data" id="img-upload-form">
+                            <form action="{{ route('admin.products.update', $product->id) }}" method="post" enctype="multipart/form-data" id="img-upload-form">
                                 @csrf
+                                @method('PUT')
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
@@ -63,10 +64,14 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="form-group bmd-form-group">
-                                        <label class="form-control" for="files" style="cursor: pointer;">Upload Image <i class="fa fa-image" style="float: left; margin:2px;  margin-right:7px;"></i></label>
-                                        <input type="file" name="images[]" id="files" multiple accept="image/*">
-                                        <output class="output-background " id="Filelist"></output>
-
+                                          <label class="form-control" for="files" style="cursor: pointer;">Upload Image <i class="fa fa-image icon-image"></i></label>
+                                            <input type="file" name="images[]" id="files" multiple accept="image/*">
+                                              <div class="output-background">
+                                                <div id="existing-images">
+                                                    <input type="hidden" id="existingImages" name="image_list" value="{{ $product->main_image }},{{ $product->images }}">
+                                                </div>
+                                                 <output id="Filelist-list"></output>
+                                           </div>
                                         </div>
                                     </div>
                                 </div>
@@ -78,5 +83,6 @@
                 </div>
             </div>
         </div>
+        {{-- <script src="{{ asset('admin/js/file-upload-edit.js') }}"></script> --}}
     </div>
 @endsection

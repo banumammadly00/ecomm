@@ -19,6 +19,7 @@
     <link href="{{ asset('admin/demo/demo.css')}}" rel="stylesheet" />
 
     <link href="{{ asset('admin/css/file-upload.css')}}" rel="stylesheet" />
+    @stack('scripts')
  </head>
 
 <body class="dark-edition">
