@@ -25,11 +25,11 @@ class ProductsValidationRequest extends FormRequest
     {
         return [
 
-            // 'name'            => 'required|min:3|max:150',
-            // 'sku_number'      => 'required|min:8',
-            // 'amount'          => 'required|integer|min:1',
-            // 'discount_amount' => 'min:1',
-            // 'count'           => 'required|integer|min:1',
+            'name'            => 'required|min:3|max:150',
+            'sku_number'      => 'required|min:8',
+            'amount'          => 'required|integer|min:1',
+            'discount_amount' => 'min:1',
+            'count'           => 'required|integer|min:1',
             //'images'          => 'required|min:5'
           ];
     }
