@@ -71,9 +71,10 @@ class ProductsController extends Controller
         if($all_images != $updated_images) {  $deleted_images = (array_diff($all_images, $updated_images));
                                               $this->delete_file($deleted_images);
 
-                                              $product->main_image = $updated_images[0];
+                                              $product->main_image = $request->main_image;
                                               array_shift($updated_images);
                                               $image_list = $updated_images; }
+
 
      //______________________Main Image Update____________________
 
