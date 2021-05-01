@@ -1,4 +1,3 @@
-//I added event handler for the file upload control to access the files properties.
 document.addEventListener("DOMContentLoaded", init, false);
 var preview = document.getElementById('Filelist');
 
@@ -33,7 +32,6 @@ function handleFileSelect(e) {
   //To obtaine a File reference
   var files = e.target.files;
 
-  // Loop through the FileList and then to render image files as thumbnails.
   for (var i = 0, f; (f = files[i]); i++) {
     //instantiate a FileReader object to read its contents into memory
     var fileReader = new FileReader();
@@ -52,9 +50,6 @@ function handleFileSelect(e) {
       };
     })(f);
 
-    // Read in the image file as a data URL.
-    // readAsDataURL: The result property will contain the file/blob's data encoded as a data URL.
-    // More info about Data URI scheme https://en.wikipedia.org/wiki/Data_URI_scheme
     fileReader.readAsDataURL(f);
   }
   document
@@ -62,7 +57,6 @@ function handleFileSelect(e) {
     .addEventListener("change", handleFileSelect, false);
 }
 
-//To remove attachment once user click on x button
 jQuery(function($) {
   $("div").on("click", ".img-wrap .close", function() {
     var id = $(this)
@@ -70,7 +64,6 @@ jQuery(function($) {
       .find("img")
       .data("id");
 
-    //to remove the deleted item from array
     var elementPos = AttachmentArray.map(function(x) {
       return x.FileName;
     }).indexOf(id);
@@ -78,21 +71,18 @@ jQuery(function($) {
       AttachmentArray.splice(elementPos, 1);
     }
 
-    //to remove image tag
     $(this)
       .parent()
       .find("img")
       .not()
       .remove();
 
-    //to remove div tag that contain the image
     $(this)
       .parent()
       .find("div")
       .not()
       .remove();
 
-    //to remove div tag that contain caption name
     $(this)
       .parent()
       .parent()
@@ -100,7 +90,6 @@ jQuery(function($) {
       .not()
       .remove();
 
-    //to remove li tag
     var lis = document.querySelectorAll("#imgList li");
     for (var i = 0; (li = lis[i]); i++) {
       if (li.innerHTML == "") {
@@ -222,10 +211,6 @@ function RenderThumbnail(e, readerEvt) {
     '"/>' + '</div>'
   ].join("");
 
-//   var div = document.createElement("div");
-//   div.className = "FileNameCaptionStyle";
-//   li.appendChild(div);
-//   div.innerHTML = [readerEvt.name].join("");
 
   document.getElementById("Filelist").insertBefore(ul, null);
   document.getElementById('check').checked=true;
