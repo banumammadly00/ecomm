@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Products;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Gallery;
 use App\Http\Requests\ProductsValidationRequest;
 
 
@@ -24,30 +24,20 @@ class ProductsController extends Controller
     }
 
 
-    public function store(ProductsValidationRequest $request)
+    public function store(ProductsValidationRequest $request, Gallery $gallery)
     {
-        //______________________Image Store_________________________
-        $request->images ?  $this->file_upload($request) : '' ;
-        $file_names= array();
-        if($request->hasFile('images')) {
-         foreach ($request->images as $image){
-           $filename = time(). "-" . $image->getClientOriginalName() ;
-           if($request->main_image != $image->getClientOriginalName() ) array_push( $file_names, $filename )  ;
-         }
-         $images = implode("," , $file_names);
-        }
 
-        Products::create([
+      $product = Products::create([
             'name'             => $request->name,
             'sku_number'       => $request->sku_number,
-            'amount'           => $request->amount,
-            'discount_amount'  => $request->discount_amount,
-            'count'            => $request->count,
-            'main_image'       => time(). "-" . $request->main_image,
-            'images'           => $images
+            'price'            => $request->price,
+            'discount_price'   => $request->discount_price,
+            'count'            => $request->count
         ]);
 
-       return  redirect('admin/products')->with('success', 'Product was created successfully');
+        if($request->hasFile('images'))  $gallery->gallery_upload($request->images, $request->main_image, $product->id);
+
+        return  redirect('admin/products')->with('success', 'Product was created successfully');
 
     }
 
@@ -58,94 +48,46 @@ class ProductsController extends Controller
 
     public function edit(Products $product)
     {
-        return view('admin.products.edit', ['product' => $product]);
+        $images = Gallery::where('product_id', $product->id)->get();
+
+        return view('admin.products.edit', ['product' => $product,
+                                            'images'  => $images,
+                                            'month'   => date('M', strtotime($product->created_at)) ]);
+
     }
 
-    public function update(ProductsValidationRequest $request, Products $product)
+    public function update(ProductsValidationRequest $request, Products $product, Gallery $gallery)
     {
-        $image_list =explode("," , $product->images);
+    #Image Delete_______________________
+    $gallery->gallery_delete($request->deleted_images, $request->main_image, $product->id, $product->created_at);
 
-     //_______________________Image Delete_______________________
-        $updated_images = explode("," , ($request->image_list));
-        $all_images = $image_list; array_push($all_images, $product->main_image);
-        if($all_images != $updated_images) {  $deleted_images = (array_diff($all_images, $updated_images));
-                                              $this->delete_file($deleted_images);
+    #Main Image Update____________________
+    $gallery->main_image_update($product->id, $request->main_image);
 
-                                              $product->main_image = $request->main_image;
-                                              array_shift($updated_images);
-                                              $image_list = $updated_images; }
+    #New Image Store_______________________
+    if($request->hasFile('images')) $gallery->gallery_upload($request->images, $request->main_image, $product->id);
 
+       $product->update([
+          'name'             => $request->name,
+          'sku_number'       => $request->sku_number,
+          'price'            => $request->price,
+          'discount_price'   => $request->discount_price,
+          'count'            => $request->count,
+      ]);
 
-     //______________________Main Image Update____________________
-
-       if( in_array($request->main_image, $image_list) ) {
-        $filename = strtotime($product->created_at)."-".$request->main_image;
-        if($filename != $product->main_image){
-
-          $main_image = $product->main_image;
-          array_push( $image_list, $main_image);
-
-          $image_list = array_diff($image_list, array("$request->main_image") );
-          $product->main_image = $request->main_image;
-      } }
-
-
-     //____________________New Image Store_______________________
-      if($request->hasFile('images')) {
-        $this->file_upload($request);
-        foreach ($request->images as $image){
-
-        $filename = time(). "-" . $image->getClientOriginalName() ;
-        if($request->main_image!= $image->getClientOriginalName() ) {  array_push( $image_list, $filename ); }
-        else{
-            array_push($image_list, $product->main_image );
-            $product->main_image =  $request->main_image ;
-          }
-        }
-      }
-       $images = implode("," , $image_list);
-
-
-             $product->update([
-                'name'             => $request->name,
-                'sku_number'       => $request->sku_number,
-                'amount'           => $request->amount,
-                'discount_amount'  => $request->discount_amount,
-                'count'            => $request->count,
-                'main_image'       => $product->main_image,
-                'images'           => $images
-             ]);
-
-            return  redirect('admin/products')->with('success', 'Product was updated successfully');
-
+      return  redirect('admin/products')->with('success', 'Product was updated successfully');
     }
 
-    public function destroy(Products $product)
+    public function destroy(Products $product, Gallery $gallery)
     {
-       //__________________Image Path Delete_________________
-        $images = explode("," ,$product->images);
-        array_push($images, $product->main_image);
-        $this->delete_file($images);
+       #Image Delete_________________
+       $images = Gallery::where('product_id', $product->id)->get();
+       foreach($images as $image){ $gallery->file_delete($image->name, $product->created_at); $image->delete(); }
 
-        $product->delete();
-        return redirect()->back()->with('success', 'Product was deleted successfully');
+       $product->delete();
+       return redirect()->back()->with('success', 'Product was deleted successfully');
     }
 
-    public function delete_file($images){
-
-        foreach($images as $image){ Storage::delete('public/images/'.$image); }
-    }
-
-
-    public  function  file_upload(ProductsValidationRequest $request){
-
-        if($request->hasFile('images')) {
-            foreach($request->images as $image){
-                $filename = time(). "-". $image->getClientOriginalName() ;
-                $image->storeAs('images', $filename, 'public');
-            }
-      }
-    }
 
     public  function updatestatus(Products $product){
 
