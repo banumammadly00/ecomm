@@ -26,7 +26,7 @@
                                         <th>  ID            </th>
                                         <th>  Name          </th>
                                         <th>  SKU Number    </th>
-                                        <th>  Amount        </th>
+                                        <th>  Price         </th>
                                         <th>  Count         </th>
                                         <th>  Status        </th>
                                     </tr>
@@ -37,7 +37,7 @@
                                             <td> {{ $product->id }}            </td>
                                             <td> {{ $product->name }}          </td>
                                             <td> {{ $product->sku_number }}    </td>
-                                            <td> {{ $product->amount }}        </td>
+                                            <td> {{ $product->price }}        </td>
                                             <td> {{ $product->count }}         </td>
                                             <td>
                                                <div class="form-check">

@@ -14,7 +14,7 @@
                         <div class="card-header card-header-info">
                             <h4 class="card-title">Add new product</h4>
                         </div>
-                     //--------------Errors------------
+                     {{-- --------------Errors------------ --}}
                         @include('admin.messages.errors')
 
                         <div class="card-body">
@@ -39,16 +39,16 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <label class="bmd-label-floating">Amount </label>
-                                            <input type="text" name="amount" class="form-control" value="{{ old('amount')}} " >
+                                            <label class="bmd-label-floating">Price </label>
+                                            <input type="text" name="price" class="form-control" value="{{ old('price')}} " >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
-                                            <label class="bmd-label-floating">Discount Amount</label>
-                                            <input type="text" name="discount_amount" class="form-control" value="{{ old('discount_amount')}} " >
+                                            <label class="bmd-label-floating">Discount Price</label>
+                                            <input type="text" name="discount_price" class="form-control" value="{{ old('discount_price')}} " >
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-info pull-right">Create</button>
+                                <button type="submit" class="btn btn-info pull-right">+Add new product</button>
                                 <div class="clearfix"></div>
                             </form>
                         </div>
@@ -77,6 +77,5 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('admin/js/file-upload.js')}}"></script>
     </div>
 @endsection
